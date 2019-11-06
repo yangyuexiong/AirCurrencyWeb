@@ -58,7 +58,7 @@ class DevelopmentConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
     """生产环境"""
     DEBUG = False
-    RUN_PORT = 5000
+    RUN_PORT = 8080
 
     """Redis"""
     # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
