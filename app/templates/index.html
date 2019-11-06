@@ -1,16 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
-    {% for k,v in context %}
-        <a>{{ k }}</a>
+<html>
 
-        <a>{{ v }}</a>
-    {% endfor %}
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .container {
+            padding-top: 20px;
+        }
+
+        .table {
+            width: 65%;
+            float: left;
+            margin-right: 5%;
+        }
+
+        .list-group {
+            width: 30%;
+            float: left;
+        }
+
+        .list-group-horizontal .list-group-item {
+            display: inline-block;
+        }
+
+        .list-group-horizontal .list-group-item {
+            margin-bottom: 0;
+            margin-left: -4px;
+            margin-right: 0;
+        }
+
+        .list-group-horizontal .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .list-group-horizontal .list-group-item:last-child {
+            border-top-right-radius: 4px;
+            border-bottom-left-radius: 0;
+        }
+
+        #btn_top {
+            position: fixed;
+            bottom: 0;
+            right: 0
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="text-center">
+            <div class="list-group list-group-horizontal">
+
+                <a href="{{ url_for('module_01.index') }}" data-toggle="tab"
+                   {% if not ex %}class="list-group-item active"{% else %}class="list-group-item"{% endif %}>全部</a>
+                <a href="{{ url_for('module_01.index',ex='okex') }}" data-toggle="tab"
+                   {% if ex=='okex' %}class="list-group-item active"
+                   {% else %}class="list-group-item"{% endif %}>OKEX</a>
+                <a href="{{ url_for('module_01.index',ex='bitfinex') }}" data-toggle="tab"
+                   {% if ex=='bitfinex' %}class="list-group-item active"
+                   {% else %}class="list-group-item"{% endif %}>BitFinex</a>
+                <a href="{{ url_for('module_01.index',ex='huobi') }}" data-toggle="tab"
+                   {% if ex=='huobi' %}class="list-group-item active"
+                   {% else %}class="list-group-item"{% endif %}>火币</a>
+
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Symbol</th>
+            <th>Error</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for k,v in context %}
+            <tr>
+                <td>{{ k }}</td>
+                <td>{{ v }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <ul class="list-group">
+        {% for i in r_list %}
+            {% if '.DS_Store' not in i %}
+                <li class="list-group-item">
+                    <span class="badge">new</span>
+                    <a href="{{ url_for('static',filename=i) }}" target="_blank">{{ i }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <button id="btn_top"> 回到顶部</button>
 </div>
+
+
 </body>
+
+
 </html>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script>
+    $('#btn_top').click(function () {
+        $('html,body').animate({scrollTop: 0}, 500);
+    });
+</script>
