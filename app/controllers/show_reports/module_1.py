@@ -24,10 +24,13 @@ def index(ex=None):
     :return:
     """
     path_1 = os.getcwd().split('AirCurrencyWeb')[0]  # 系统目录
-    path_2 = 'AirCurrencyWeb/app/static'  # 项目目录
+    path_2 = 'AirCurrencyWeb/app/static'
     report_dir = path_1 + path_2
+
     lists = os.listdir(report_dir)  # 报告列表
     lists.sort(key=lambda fn: os.path.getmtime(report_dir + '/' + fn))  # 排序
+    lists.reverse()
+    # print(lists)
 
     if ex == 'okex':
         print('okex')
