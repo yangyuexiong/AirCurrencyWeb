@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>首页</title>
+
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    {#        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+
     <style>
         .container {
             padding-top: 20px;
@@ -48,28 +51,52 @@
         }
     </style>
 </head>
-
 <body>
 <div class="container">
+    <h3>
+        当前环境:{% if 'dev' in env_path %}测试环境{% else %}生产环境{% endif %}
+        <button class="btn btn-default dropdown-toggle"><a href="{{ url_for('module_01.index') }}">测试环境</a></button>
+        <button class="btn btn-default dropdown-toggle"><a href="{{ url_for('module_01.pro') }}">生产环境</a></button>
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                切换环境 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="{{ url_for('module_01.index') }}">测试环境</a></li>
+                <li><a href="{{ url_for('module_01.pro') }}">生产环境</a></li>
+            </ul>
+        </div>
+    </h3>
+
+
     <div class="row">
         <div class="text-center">
             <div class="list-group list-group-horizontal">
 
-                <a href="{{ url_for('module_01.index') }}" data-toggle="tab"
-                   {% if not ex %}class="list-group-item active"{% else %}class="list-group-item"{% endif %}>全部</a>
-                <a href="{{ url_for('module_01.index',ex='okex') }}" data-toggle="tab"
+                <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index') }}"
+                   {% else %}href="{{ url_for('module_01.pro') }}"{% endif %} data-toggle="tab"
+                   {% if not ex %}class="list-group-item active" {% else %}class="list-group-item"{% endif %}>全部</a>
+
+                <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='okex') }}"
+                   {% else %}href="{{ url_for('module_01.pro',ex='okex') }}"{% endif %} data-toggle="tab"
                    {% if ex=='okex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>OKEX</a>
-                <a href="{{ url_for('module_01.index',ex='bitfinex') }}" data-toggle="tab"
+
+                <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='bitfinex') }}"
+                   {% else %}href="{{ url_for('module_01.pro',ex='bitfinex') }}"{% endif %} data-toggle="tab"
                    {% if ex=='bitfinex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>BitFinex</a>
-                <a href="{{ url_for('module_01.index',ex='huobi') }}" data-toggle="tab"
+
+                <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='huobi') }}"
+                   {% else %}href="{{ url_for('module_01.pro',ex='huobi') }}"{% endif %} data-toggle="tab"
                    {% if ex=='huobi' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>火币</a>
-
             </div>
         </div>
     </div>
+
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -88,7 +115,9 @@
 
         </tbody>
     </table>
+
     <ul class="list-group">
+
         {% for i in r_list %}
             {% if '.DS_Store' not in i %}
                 <li class="list-group-item">
@@ -106,9 +135,11 @@
 
 
 </html>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+
 <script>
     $('#btn_top').click(function () {
         $('html,body').animate({scrollTop: 0}, 500);
     });
+
 </script>

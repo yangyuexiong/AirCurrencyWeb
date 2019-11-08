@@ -67,6 +67,14 @@ class ProductionConfig(BaseConfig):
     R = redis.Redis(connection_pool=POOL)
 
 
+def redis_obj(db_num):
+    REDIS_PWD = 123456
+    POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True,
+                                db=int(db_num))
+    R = redis.Redis(connection_pool=POOL)
+    return R
+
+
 config_obj = {
     'production': ProductionConfig,
     'development': DevelopmentConfig,
