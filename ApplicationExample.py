@@ -9,7 +9,6 @@ import os
 
 from flask import Flask as _Flask
 from flask.json import JSONEncoder as _JSONEncoder
-from flask_cors import CORS
 
 from ExtendRegister.bp_register import register_bp  # 蓝图
 from ExtendRegister.conf_register import register_config  # 配置
@@ -40,7 +39,6 @@ def create_app():
         template_folder=os.getcwd() + '/app/templates',
         static_folder=os.getcwd() + '/app/static',
     )  # 实例
-    CORS(app, supports_credentials=True)  # 跨域
     register_config(app)
     register_bp(app)
     return app
