@@ -19,7 +19,6 @@ R = config_obj[app_conf()].R
 @route_module_01.route('/dev/index/<ex>', methods=["GET", "POST"])
 def index(ex=None):
     """
-
     :param ex:
     :return:
     """
