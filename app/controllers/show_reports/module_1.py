@@ -8,11 +8,45 @@
 import os
 
 from flask import Blueprint, render_template, request
-from config.config import app_conf, config_obj, redis_obj
+from config.config import redis_obj
 
 route_module_01 = Blueprint('module_01', __name__)
 
-R = config_obj[app_conf()].R
+
+def check_ex(R, ex):
+    if ex == 'okex':
+        print('okex')
+        exchange = 'okex'
+        exchange_key = 'exchange:%s' % exchange
+        context = R.hgetall(exchange_key).items()
+        return context
+    if ex == 'bitfinex':
+        print('bitfinex')
+        exchange = 'bitfinex'
+        exchange_key = 'exchange:%s' % exchange
+        context = R.hgetall(exchange_key).items()
+        return context
+    if ex == 'huobi':
+        print('huobi')
+        exchange = 'huobi'
+        exchange_key = 'exchange:%s' % exchange
+        context = R.hgetall(exchange_key).items()
+        return context
+    if ex == 'api':
+        print('api')
+        exchange = 'api'
+        exchange_key = 'exchange:%s' % exchange
+        context = R.hgetall(exchange_key).items()
+        return context
+    else:
+        print('all')
+        R.keys('exchange*')
+        print(R.keys('exchange*'))
+        all_err_exchang = {}
+        for i in R.keys('exchange*'):
+            all_err_exchang.update(R.hgetall(i))
+        context = all_err_exchang.items()
+        return context
 
 
 @route_module_01.route('/dev/index', methods=["GET", "POST"])
@@ -35,36 +69,16 @@ def index(ex=None):
     print(lists)
 
     env_path = request.path
-    if ex == 'okex':
-        print('okex')
-        exchange = 'okex'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
 
-    if ex == 'bitfinex':
-        print('bitfinex')
-        exchange = 'bitfinex'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
+    context = check_ex(R, ex)
+    all_text = {
+        'ex': ex,
+        'env_path': env_path,
+        'r_list': lists,
+        'context': context,
+    }
 
-    if ex == 'huobi':
-        print('huobi')
-        exchange = 'huobi'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
-
-    else:
-        print('all')
-        R.keys('exchange*')
-        print(R.keys('exchange*'))
-        all_err_exchang = {}
-        for i in R.keys('exchange*'):
-            all_err_exchang.update(R.hgetall(i))
-        context = all_err_exchang.items()
-        return render_template('index.html', context=context, r_list=lists, env_path=env_path)
+    return render_template('index.html', **all_text)
 
 
 @route_module_01.route('/pro/index', methods=["GET", "POST"])
@@ -83,33 +97,11 @@ def pro(ex=None):
     print(lists)
 
     env_path = request.path
-    if ex == 'okex':
-        print('okex')
-        exchange = 'okex'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
-
-    if ex == 'bitfinex':
-        print('bitfinex')
-        exchange = 'bitfinex'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
-
-    if ex == 'huobi':
-        print('huobi')
-        exchange = 'huobi'
-        exchange_key = 'exchange:%s' % exchange
-        context = R.hgetall(exchange_key).items()
-        return render_template('index.html', context=context, r_list=lists, ex=ex, env_path=env_path)
-
-    else:
-        print('all')
-        R.keys('exchange*')
-        print(R.keys('exchange*'))
-        all_err_exchang = {}
-        for i in R.keys('exchange*'):
-            all_err_exchang.update(R.hgetall(i))
-        context = all_err_exchang.items()
-        return render_template('index.html', context=context, r_list=lists, env_path=env_path)
+    context = check_ex(R, ex)
+    all_text = {
+        'ex': ex,
+        'env_path': env_path,
+        'r_list': lists,
+        'context': context,
+    }
+    return render_template('index.html', **all_text)

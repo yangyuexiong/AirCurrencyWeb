@@ -96,6 +96,7 @@
                    {% if ex=='okex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>OKEX</a>
 
+
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='bitfinex') }}"
                    {% else %}href="{{ url_for('module_01.pro',ex='bitfinex') }}"{% endif %} data-toggle="tab"
                    {% if ex=='bitfinex' %}class="list-group-item active"
@@ -105,6 +106,11 @@
                    {% else %}href="{{ url_for('module_01.pro',ex='huobi') }}"{% endif %} data-toggle="tab"
                    {% if ex=='huobi' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>火币</a>
+
+                <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='api') }}"
+                   {% else %}href="{{ url_for('module_01.pro',ex='api') }}"{% endif %} data-toggle="tab"
+                   {% if ex=='api' %}class="list-group-item active"
+                   {% else %}class="list-group-item"{% endif %}>Api</a>
             </div>
         </div>
     </div>
@@ -112,7 +118,11 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Symbol</th>
+            {% if ex=='api' %}
+                <th>Url</th>
+            {% else %}
+                <th>Symbol</th>
+            {% endif %}
             <th>Error</th>
         </tr>
         </thead>
