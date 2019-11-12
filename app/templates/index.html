@@ -82,7 +82,6 @@
         </div>
     </h4>
 
-
     <div class="row">
         <div class="text-center">
             <div class="list-group list-group-horizontal">
@@ -95,7 +94,6 @@
                    {% else %}href="{{ url_for('module_01.pro',ex='okex') }}"{% endif %} data-toggle="tab"
                    {% if ex=='okex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>OKEX</a>
-
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='bitfinex') }}"
                    {% else %}href="{{ url_for('module_01.pro',ex='bitfinex') }}"{% endif %} data-toggle="tab"
@@ -114,7 +112,14 @@
             </div>
         </div>
     </div>
-
+    <div>
+        <div>
+            <button type="button" class="btn btn-danger">手动执行定时任务</button>
+        </div>
+        <h4>
+            最后更新时间:{{ last_update_time }}
+        </h4>
+    </div>
     <table class="table table-bordered">
         <thead>
         <tr>
