@@ -25,7 +25,12 @@
             width: 65%;
             float: left;
             margin-right: 5%;
+            table-layout: fixed;
         }
+        .table td{
+            word-break: break-all;
+        }
+
 
         .list-group {
             width: 30%;
@@ -129,14 +134,16 @@
                 <th>Symbol</th>
             {% endif %}
             <th>Error</th>
+            <th>Result</th>
         </tr>
         </thead>
         <tbody>
 
-        {% for k,v in context %}
+        {% for i in context %}
             <tr>
-                <td>{{ k }}</td>
-                <td>{{ v }}</td>
+                <td>{{ i['symbol'] }}</td>
+                <td>{{ i['redis_err'] }}</td>
+                <td>{{ i['result'] }}</td>
             </tr>
         {% endfor %}
 
@@ -154,6 +161,7 @@
             {% endif %}
         {% endfor %}
     </ul>
+
     <button id="btn_top"> 回到顶部</button>
 </div>
 

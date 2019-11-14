@@ -19,19 +19,40 @@ def check_ex(R, ex):
         exchange = 'okex'
         exchange_key = 'exchange:%s' % exchange
         context = R.hgetall(exchange_key).items()
-        return context
+        num = 1
+        new_context = []
+        for k, v in context:
+            vv = eval('(' + v + ')')
+            new_context.append(vv)
+            num += 1
+        return new_context
+
     if ex == 'bitfinex':
         print('bitfinex')
         exchange = 'bitfinex'
         exchange_key = 'exchange:%s' % exchange
         context = R.hgetall(exchange_key).items()
-        return context
+        num = 1
+        new_context = []
+        for k, v in context:
+            vv = eval('(' + v + ')')
+            new_context.append(vv)
+            num += 1
+        return new_context
+
     if ex == 'huobi':
         print('huobi')
         exchange = 'huobi'
         exchange_key = 'exchange:%s' % exchange
         context = R.hgetall(exchange_key).items()
-        return context
+        num = 1
+        new_context = []
+        for k, v in context:
+            vv = eval('(' + v + ')')
+            new_context.append(vv)
+            num += 1
+        return new_context
+
     if ex == 'api':
         print('api')
         exchange = 'api'
@@ -42,11 +63,15 @@ def check_ex(R, ex):
         print('all')
         R.keys('exchange*')
         print(R.keys('exchange*'))
-        all_err_exchang = {}
-        for i in R.keys('exchange*'):
-            all_err_exchang.update(R.hgetall(i))
-        context = all_err_exchang.items()
-        return context
+        all_lists = [R.hgetall(i).items() for i in R.keys('exchange*')]
+        num = 1
+        new_context = []
+        for i in all_lists:
+            for k, v in i:
+                new_context.append(eval('(' + v + ')'))
+                num += 1
+        # print(new_context)
+        return new_context
 
 
 @route_module_01.route('/dev/index', methods=["GET", "POST"])
