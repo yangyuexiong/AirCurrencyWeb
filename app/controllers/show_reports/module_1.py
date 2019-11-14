@@ -101,7 +101,7 @@ def index(ex=None):
         'env_path': env_path,
         'r_list': lists,
         'context': context,
-        'last_update_time': redis_obj(3).get('end_time').split('.')[0]
+        'last_update_time': redis_obj(3).get('end_time').split('.')[0] if redis_obj(3).get('end_time') else 'init'
     }
     return render_template('index.html', **all_text)
 
@@ -128,6 +128,6 @@ def pro(ex=None):
         'env_path': env_path,
         'r_list': lists,
         'context': context,
-        'last_update_time': redis_obj(3).get('end_time').split('.')[0]
+        'last_update_time': redis_obj(3).get('end_time').split('.')[0] if redis_obj(3).get('end_time') else 'init'
     }
     return render_template('index.html', **all_text)
