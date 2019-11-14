@@ -45,8 +45,8 @@ def main():
 
     # 终端
     if os.environ.get('STARTUP_MODE') == 'ter':
-        # app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
-        app.run(debug=True, host='192.168.1.125', port=9999)
+        app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
+        # app.run(debug=True, host='192.168.1.125', port=9999)
 
     # Pycharm
     if os.environ.get('STARTUP_MODE') == 'pyc':
