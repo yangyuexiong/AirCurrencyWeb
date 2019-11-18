@@ -5,7 +5,7 @@
     <title>首页</title>
 
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -27,7 +27,8 @@
             margin-right: 5%;
             table-layout: fixed;
         }
-        .table td{
+
+        .table td {
             word-break: break-all;
         }
 
@@ -68,13 +69,6 @@
 <div class="container">
     <h4>
         当前环境:{% if 'dev' in env_path %}测试环境{% else %}生产环境{% endif %}
-        <button class="btn btn-default dropdown-toggle">
-            <a href="{{ url_for('module_01.index') }}">测试环境</a>
-        </button>
-        <button class="btn btn-default dropdown-toggle">
-            <a href="{{ url_for('module_01.pro') }}">生产环境</a>
-        </button>
-
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -92,26 +86,26 @@
             <div class="list-group list-group-horizontal">
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index') }}"
-                   {% else %}href="{{ url_for('module_01.pro') }}"{% endif %} data-toggle="tab"
+                   {% else %}href="{{ url_for('module_01.pro') }}"{% endif %}
                    {% if not ex %}class="list-group-item active" {% else %}class="list-group-item"{% endif %}>全部</a>
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='okex') }}"
-                   {% else %}href="{{ url_for('module_01.pro',ex='okex') }}"{% endif %} data-toggle="tab"
+                   {% else %}href="{{ url_for('module_01.pro',ex='okex') }}"{% endif %}
                    {% if ex=='okex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>OKEX</a>
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='bitfinex') }}"
-                   {% else %}href="{{ url_for('module_01.pro',ex='bitfinex') }}"{% endif %} data-toggle="tab"
+                   {% else %}href="{{ url_for('module_01.pro',ex='bitfinex') }}"{% endif %}
                    {% if ex=='bitfinex' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>BitFinex</a>
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='huobi') }}"
-                   {% else %}href="{{ url_for('module_01.pro',ex='huobi') }}"{% endif %} data-toggle="tab"
+                   {% else %}href="{{ url_for('module_01.pro',ex='huobi') }}"{% endif %}
                    {% if ex=='huobi' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>火币</a>
 
                 <a {% if 'dev' in env_path %}href="{{ url_for('module_01.index',ex='api') }}"
-                   {% else %}href="{{ url_for('module_01.pro',ex='api') }}"{% endif %} data-toggle="tab"
+                   {% else %}href="{{ url_for('module_01.pro',ex='api') }}"{% endif %}
                    {% if ex=='api' %}class="list-group-item active"
                    {% else %}class="list-group-item"{% endif %}>Api</a>
             </div>
